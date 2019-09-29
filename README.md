@@ -1,6 +1,6 @@
 # Excel2Lua
 
-游戏导标工具，excel转为lua table
+游戏导表工具，excel转为lua table
 
 excel to Lua table realized with Python
 
