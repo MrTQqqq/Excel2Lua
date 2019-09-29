@@ -1,6 +1,6 @@
 # Excel2Lua
 
-游戏导表工具，excel转为lua table
+一键游戏导表工具，excel转为lua table
 
 excel to Lua table realized with Python
 
@@ -18,3 +18,7 @@ excel to Lua table realized with Python
 再在main.py中import进conv中的py文件，并将as后的名字加到conv_file的列表中
 
 无需自己创建lua_file文件夹，脚本自动添加
+
+Windows环境下直接运行run.cmd即可
+
+
