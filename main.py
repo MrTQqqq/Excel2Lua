@@ -76,13 +76,6 @@ def read_excel(file):
 	all_data[filename] = this_excel
 
 
-# 读取表格中的数据，存储到内存中
-for root, dirs, files in os.walk(excel_file_path) :
-	for file in files:
-		read_excel(excel_file_path+file)
-	
-
-
 # 新增文件时，需要手动import
 import conv.test as conv_test
 import conv.opr as conv_opr
@@ -95,36 +88,47 @@ conv_file = [
 
 ]
 
-
-# 预生成文件的数据
-converted_data = {}
-
-# 分发到单独的处理文件
-for file in conv_file:
-	# os.path.basename(file)
-	file_name = os.path.basename(file.__file__)
+if __name__ == '__main__':
 	
-	(filename, extension) = os.path.splitext(file_name)
-	converted = file.process(all_data[filename])
-	converted_data[filename] = converted
+	# 读取表格中的数据，存储到内存中
+	for root, dirs, files in os.walk(excel_file_path) :
+		for file in files:
+			read_excel(excel_file_path+file)
+	
+	# 预生成文件的数据
+	converted_data = {}
+
+	# 分发到单独的处理文件
+	for file in conv_file:
+		# os.path.basename(file)
+		file_name = os.path.basename(file.__file__)
+		
+		(filename, extension) = os.path.splitext(file_name)
+		converted = file.process(all_data[filename])
+		converted_data[filename] = converted
+
+	# 生成文件夹
+	if not os.path.isdir('./lua_file'):
+		os.mkdir("./lua_file")
+	os.chdir('./lua_file')
 
 
-# 生成文件夹
-if not os.path.isdir('./lua_file'):
-	os.mkdir("./lua_file")
-os.chdir('./lua_file')
+	print("-------------------------------------------------------")
+
+	# 生成lua文件
+	for data in converted_data:
+		print("generateing...", data + ".lua")
+		fd = open(str(data+'.lua'), mode = 'w', encoding = 'utf-8')
+		res_str = 'return '
+		res_str += luaMaker.LuaMaker.makeLuaTable(converted_data[data])
+		fd.write(res_str)
+		fd.close()
 
 
-print("-------------------------------------------------------")
 
-# 生成lua文件
-for data in converted_data:
-	print("generateing...", data + ".lua")
-	fd = open(str(data+'.lua'), mode = 'w', encoding = 'utf-8')
-	res_str = 'return '
-	res_str += luaMaker.LuaMaker.makeLuaTable(converted_data[data])
-	fd.write(res_str)
-	fd.close()
+
+
+
 
 
 
