@@ -5,8 +5,7 @@ excel to Lua table realized with Python
 
 环境Python 3
 
-没安装过Python环境的，需要 控制台安装库一下文件 pip install xxx
-	xlrd
+没安装过Python环境的，需要 控制台安装库一下文件 pip install xlrd
 
 
 新增excel文件时，将excel文件放入excel文件下
