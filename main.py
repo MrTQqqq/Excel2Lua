@@ -4,7 +4,7 @@ import os
 import luaMaker
 
 # 处理表格
-def deal_table(table):
+def deal_table(table, sheet_name, filename):
 	# 每列数据索引
 	e_name = table.row_values(0)
 	# 数据类型
@@ -14,6 +14,8 @@ def deal_table(table):
 		row = table.row_values(r)
 		row_data = {}
 		for c in range(0, table.ncols):
+			assert e_name[c], "[no title] row[%s], col[%s] filename[%s] sheet_names [%s]" % (r, c, sheet_name, filename)
+			assert types[c], "[no types] row[%s], col[%s] filename[%s] sheet_names [%s]" % (r, c, sheet_name, filename)
 			if row[c] or row[c] == 0:
 				if types[c] == 'int' or types[c] == 'float' :
 					row_data[e_name[c]] = int(row[c])
@@ -69,7 +71,7 @@ def read_excel(file):
 	for index in range(0, sheet_num):
 		table = workbook.sheet_by_index(index)
 		
-		res = deal_table(table)
+		res = deal_table(table, workbook.sheet_names()[index], file_name)
 
 		this_excel.append(res)
 	(filename, extension) = os.path.splitext(file_name)
