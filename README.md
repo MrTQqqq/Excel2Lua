@@ -19,6 +19,6 @@ excel to Lua table realized with Python
 
 无需自己创建lua_file文件夹，脚本自动添加
 
-Windows环境下直接运行run.cmd即可
+Windows环境下直接运行run.cmd
 
 
